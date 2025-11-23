@@ -1,1 +1,26 @@
-<p>home works!</p>
+<div class="input-group mb-3">
+  <span class="input-group-text" id="addon">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </span>
+  <input type="text" class="form-control" placeholder="Star Wars..." aria-describedby="basic-addon1" [(ngModel)]="search" (keyup)="loadMovies()">
+</div>
+<div class="movies">
+    @for (movie of movies(); track $index) {
+    <div class="card">
+        <img src="{{movie.poster}}" class="card-img-top" alt="{{movie.title}}">
+        <div class="card-body">
+            <h5 class="card-title">{{movie.title}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{movie.director.name}}</h6>
+            <p class="card-text">{{ movie.shortDescription }}</p>
+        </div>
+        <div class="card-footer btn-group">
+            <a class="btn btn-sm btn-primary" [routerLink]="`/movie/${movie.shortUrl}`">
+                <i class="fa-solid fa-up-right-from-square"></i> Details
+            </a>
+            <div class="btn btn-sm btn-success">
+                <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+            </div>
+        </div>
+    </div>
+    }
+</div>

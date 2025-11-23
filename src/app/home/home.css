@@ -1,0 +1,16 @@
+.movies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.card{
+    max-width: 15rem;
+}
+
+.input-group {
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
