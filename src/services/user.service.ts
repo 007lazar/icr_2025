@@ -3,16 +3,17 @@ import { UserModel } from '../models/user.model';
 export class UserService {
   public static USER_KEY = 'icr_users'
   public static ACTIVE_KEY = 'icr_active'
+  public static TO_KEY = 'icr_to'
 
   static getUsers(): UserModel[] {
     if (!localStorage.getItem(this.USER_KEY)) {
       localStorage.setItem(this.USER_KEY, JSON.stringify([
           {
-            firstName: 'Example',
-            lastName: 'User',
-            email: 'user@example.com',
-            phone: '+38160321321',
-            password: 'user123',
+            firstName: 'Lazar',
+            lastName: 'Milovanovic',
+            email: '007lazar@gmail.com',
+            phone: '+381652068821',
+            password: 'lazar123',
             data: [],
           },
         ])

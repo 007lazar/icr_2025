@@ -1,0 +1,53 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <h5 class="card-title">User Details</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row">First Name:</th>
+                            <td>{{activeUser()?.firstName}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last Name:</th>
+                            <td>{{activeUser()?.lastName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Email:</th>
+                            <td>{{activeUser()?.email}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Phone:</th>
+                            <td>{{activeUser()?.phone}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h5>Orders</h5>
+    </div>
+    @if (activeUser()!.data.length > 0) {
+    <div class="card-body">
+        @for (order of activeUser()?.data; track $index) {
+        <p>{{order}}</p>
+        }
+    </div>
+    } @else {
+    <div class="card-body">
+        <p class="text-center">You don't have any orders yet!</p>
+    </div>
+    }
+</div>

@@ -1,0 +1,48 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="/">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a [routerLink]="`/movie/${movie()?.shortUrl}/`">{{movie()?.title}}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Reservation</li>
+    </ol>
+</nav>
+<div class="row">
+    <div class="col-12 col-md-4">
+        <img [src]="movie()?.poster" [alt]="movie()?.title" class="img-fluid">
+    </div>
+    <div class="col-12 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>{{movie()?.title}}</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="cinema" class="form-label">Cinema</label>
+                    <select class="form-select" id="cinema">
+                        <option value="1">Usce</option>
+                        <option value="2">Galerija</option>
+                        <option value="3">Ada Mall</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="time" class="form-label">Time</label>
+                    <select class="form-select" id="time">
+                        <option value="1">19:30</option>
+                        <option value="2">21:00</option>
+                        <option value="3">21:45</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="btn btn-sm btn-success">
+                    <button class="btn btn-sm btn-success">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
