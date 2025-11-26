@@ -91,4 +91,16 @@ export class UserService {
     localStorage.setItem(this.USERS_KEY, JSON.stringify(all))
   }
 
+  static deleteOrder(orderId: string) {
+    const all = this.getUsers()
+
+    for (let u of all) {
+      if (u.email === localStorage.getItem(this.ACTIVE_KEY)) {
+        u.data = u.data.filter(o => o.orderId !== orderId)
+      }
+    }
+
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(all))
+  }
+
 }

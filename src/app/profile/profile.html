@@ -50,9 +50,15 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{order.movieTitle}}</h5>
+                            <h5 class="card-title d-flex justify-content-between align-items-center">
+                                {{order.movieTitle}}
+                                <button class="btn btn-sm" type="button" (click)="deleteOrder(order)">
+                                    <i class="fa-solid fa-x"></i>
+                                </button>
+                            </h5>
                             <div class="row">
-                                <p class="col-md-6 card-text"><i class="fa-solid fa-location-crosshairs"></i> {{order.cinema}}</p>
+                                <p class="col-md-6 card-text"><i class="fa-solid fa-location-crosshairs"></i>
+                                    {{order.cinema}}</p>
                                 <p class="col-md-6 card-text text-center">Hall: {{order.hall}}</p>
                             </div>
                             <div class="row">
@@ -60,28 +66,33 @@
                                 <p class="col-md-6 card-text text-center">Quantity: {{order.quantity}}</p>
                             </div>
                             <div class="row">
-                                <p class="col-md-6 card-text"><i class="fa-solid fa-signal"></i> {{statusMap[order.status]}}</p>
+                                <p class="col-md-6 card-text"><i class="fa-solid fa-signal"></i>
+                                    {{statusMap[order.status]}}</p>
                                 <p class="col-md-6 card-text text-center">
                                     @if (order.status === 'na') {
-                                        <div class="btn-group gap-2">
-                                            <button class="btn btn-sm btn-primary rounded-circle" (click)="pay(order)">Pay</button>
-                                            <button class="btn btn-sm btn-danger rounded-circle" (click)="cancel(order)">Cancel</button>
-                                        </div>
-                                    }
-                                    @if (order.status === 'paid') {
-                                        <div class="btn-group gap-2">
-                                            <button class="btn btn-sm btn-primary rounded-circle" (click)="like(order)"><i class="fa-solid fa-heart"></i></button>
-                                            <button class="btn btn-sm btn-danger rounded-circle" (click)="dislike(order)"><i class="fa-solid fa-heart-crack"></i></button>
-                                        </div>
-                                    }
-                                    @if (order.status === 'liked' || order.status === 'disliked') {
-                                        <div class="btn-group gap-2">
-                                            Review Submited!
-                                        </div>
-                                    }
-                                    @if (order.status === 'canceled') {
-                                        Canceled Order!
-                                    }
+                                <div class="btn-group gap-2">
+                                    <button class="btn btn-sm btn-primary rounded-circle"
+                                        (click)="pay(order)">Pay</button>
+                                    <button class="btn btn-sm btn-danger rounded-circle"
+                                        (click)="cancel(order)">Cancel</button>
+                                </div>
+                                }
+                                @if (order.status === 'paid') {
+                                <div class="btn-group gap-2">
+                                    <button class="btn btn-sm btn-primary rounded-circle" (click)="like(order)"><i
+                                            class="fa-solid fa-heart"></i></button>
+                                    <button class="btn btn-sm btn-danger rounded-circle" (click)="dislike(order)"><i
+                                            class="fa-solid fa-heart-crack"></i></button>
+                                </div>
+                                }
+                                @if (order.status === 'liked' || order.status === 'disliked') {
+                                <div class="btn-group gap-2">
+                                    Review Submited!
+                                </div>
+                                }
+                                @if (order.status === 'canceled') {
+                                Canceled Order!
+                                }
                                 </p>
 
                             </div>
