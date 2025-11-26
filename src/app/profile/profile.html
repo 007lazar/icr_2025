@@ -40,9 +40,57 @@
         <h5>Orders</h5>
     </div>
     @if (activeUser()!.data.length > 0) {
-    <div class="card-body">
+    <div class="row g-3 p-5">
         @for (order of activeUser()?.data; track $index) {
-        <p>{{order}}</p>
+        <div class="col-lg-6">
+            <div class="card mb-4" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{order.movieImg}}" class="img-fluid rounded-start" alt="{{order.movieTitle}}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{order.movieTitle}}</h5>
+                            <div class="row">
+                                <p class="col-md-6 card-text"><i class="fa-solid fa-location-crosshairs"></i> {{order.cinema}}</p>
+                                <p class="col-md-6 card-text text-center">Hall: {{order.hall}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-6 card-text"><i class="fa-solid fa-clock"></i> {{order.time}}</p>
+                                <p class="col-md-6 card-text text-center">Quantity: {{order.quantity}}</p>
+                            </div>
+                            <div class="row">
+                                <p class="col-md-6 card-text"><i class="fa-solid fa-signal"></i> {{statusMap[order.status]}}</p>
+                                <p class="col-md-6 card-text text-center">
+                                    @if (order.status === 'na') {
+                                        <div class="btn-group gap-2">
+                                            <button class="btn btn-sm btn-primary rounded-circle" (click)="pay(order)">Pay</button>
+                                            <button class="btn btn-sm btn-danger rounded-circle" (click)="cancel(order)">Cancel</button>
+                                        </div>
+                                    }
+                                    @if (order.status === 'paid') {
+                                        <div class="btn-group gap-2">
+                                            <button class="btn btn-sm btn-primary rounded-circle" (click)="like(order)"><i class="fa-solid fa-heart"></i></button>
+                                            <button class="btn btn-sm btn-danger rounded-circle" (click)="dislike(order)"><i class="fa-solid fa-heart-crack"></i></button>
+                                        </div>
+                                    }
+                                    @if (order.status === 'liked' || order.status === 'disliked') {
+                                        <div class="btn-group gap-2">
+                                            Review Submited!
+                                        </div>
+                                    }
+                                    @if (order.status === 'canceled') {
+                                        Canceled Order!
+                                    }
+                                </p>
+
+                            </div>
+                            <p class="card-text text-center"><small class="text-muted">Enjoy The Movie!</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         }
     </div>
     } @else {

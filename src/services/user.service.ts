@@ -1,26 +1,27 @@
+import { OrderModel } from '../models/order.model';
 import { UserModel } from '../models/user.model';
 
 export class UserService {
-  public static USER_KEY = 'icr_users'
+  public static USERS_KEY = 'icr_users'
   public static ACTIVE_KEY = 'icr_active'
   public static TO_KEY = 'icr_to'
 
   static getUsers(): UserModel[] {
-    if (!localStorage.getItem(this.USER_KEY)) {
-      localStorage.setItem(this.USER_KEY, JSON.stringify([
-          {
-            firstName: 'Lazar',
-            lastName: 'Milovanovic',
-            email: '007lazar@gmail.com',
-            phone: '+381652068821',
-            password: 'lazar123',
-            data: [],
-          },
-        ])
+    if (!localStorage.getItem(this.USERS_KEY)) {
+      localStorage.setItem(this.USERS_KEY, JSON.stringify([
+        {
+          firstName: 'Lazar',
+          lastName: 'Milovanovic',
+          email: '007lazar@gmail.com',
+          phone: '+381652068821',
+          password: 'lazar123',
+          data: [],
+        },
+      ])
       );
     }
 
-    return JSON.parse(localStorage.getItem(this.USER_KEY)!);
+    return JSON.parse(localStorage.getItem(this.USERS_KEY)!);
   }
 
   static findUserByEmail(email: string) {
@@ -28,7 +29,7 @@ export class UserService {
     const selectedUser = users.find(u => u.email === email);
 
     if (!selectedUser) throw new Error('USER_NOT_FOUND');
-  
+
     return selectedUser;
   }
 
@@ -46,19 +47,48 @@ export class UserService {
     }
   }
 
-  static hasAuth(){
+  static hasAuth() {
     return localStorage.getItem(this.ACTIVE_KEY) !== null
   }
 
   static getActiveUser() {
-    if(!this.hasAuth)
+    if (!this.hasAuth)
       throw new Error()
 
     return this.findUserByEmail(localStorage.getItem(this.ACTIVE_KEY)!)
   }
 
-  static logout(){
+  static logout() {
     localStorage.removeItem(this.ACTIVE_KEY)
+  }
+
+  static createReservation(order: OrderModel) {
+    const current = this.getActiveUser()
+    const all = this.getUsers()
+
+    for (let u of all) {
+      if (u.email === current.email) {
+        u.data.push(order)
+      }
+    }
+
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(all))
+  }
+
+  static updateOrder(orderId: string, status: 'na' | 'paid' | 'canceled' | 'liked' | 'disliked') {
+    const all = this.getUsers()
+
+    for (let u of all) {
+      if (u.email === localStorage.getItem(this.ACTIVE_KEY)) {
+        for (let o of u.data) {
+          if (o.orderId === orderId) {
+            o.status = status
+          }
+        }
+      }
+    }
+
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(all))
   }
 
 }

@@ -17,4 +17,5 @@ export class MovieService {
     static async getMovieByPermalink(permalink: string){
         return client.get<MovieModel>(`/movie/short/${permalink}`)
     }
+
 }

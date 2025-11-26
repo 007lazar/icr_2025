@@ -13,7 +13,7 @@
     <div class="col-12 col-md-8">
         <div class="card">
             <div class="card-header">
-                <h5>{{movie()?.title}}</h5>
+                <h5><i class="fa-solid fa-film"></i> {{movie()?.title}}</h5>
             </div>
             <div class="card-body">
                 <p>{{movie()?.description}}</p>
@@ -36,12 +36,10 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="btn btn-sm btn-success">
-                    <a class="btn btn-sm btn-success" [routerLink]="`/movie/${movie()?.shortUrl}/reservation`">
-                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-                    </a>
-                </div>
+            <div class="card-footer text-center">
+                <a class="btn btn-success" [routerLink]="`/movie/${movie()?.shortUrl}/reservation`">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </a>
             </div>
         </div>
     </div>

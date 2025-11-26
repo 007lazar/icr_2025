@@ -14,35 +14,49 @@
         <img [src]="movie()?.poster" [alt]="movie()?.title" class="img-fluid">
     </div>
     <div class="col-12 col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <h5>{{movie()?.title}}</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="cinema" class="form-label">Cinema</label>
-                    <select class="form-select" id="cinema">
-                        <option value="1">Usce</option>
-                        <option value="2">Galerija</option>
-                        <option value="3">Ada Mall</option>
-                    </select>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fa-solid fa-film"></i> {{movie()?.title}}</h5>
                 </div>
-                <div class="mb-3">
-                    <label for="time" class="form-label">Time</label>
-                    <select class="form-select" id="time">
-                        <option value="1">19:30</option>
-                        <option value="2">21:00</option>
-                        <option value="3">21:45</option>
-                    </select>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="cinema" class="form-label">Cinema</label>
+                        <select class="form-select" id="cinema" formControlName="cinema">
+                            <option value="Usce">Usce Shopping Center</option>
+                            <option value="Galerija">Galerija Shopping Center</option>
+                            <option value="Ada Mall">Ada Mall Shopping Center</option>
+                            <option value="Rajiceva">Rajiceva Shopping Center</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time" class="form-label">Time</label>
+                        <select class="form-select" id="time" formControlName="time">
+                            <option value="19:30">19:30</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:45">21:45</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hall" class="form-label">Hall</label>
+                        <select class="form-select" id="time" formControlName="hall">
+                            <option value="Big">Big Hall</option>
+                            <option value="Small">Small Hall</option>
+                            <option value="Private">Private (12 person max.)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" value="1" min="1"
+                            formControlName="quantity">
+                    </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <div class="btn btn-sm btn-success">
-                    <button class="btn btn-sm btn-success">
-                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                <div class="card-footer text-center">
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-cart-shopping"></i> Book Now
                     </button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
