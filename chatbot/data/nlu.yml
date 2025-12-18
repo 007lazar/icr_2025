@@ -17,6 +17,45 @@ nlu:
     - goodevening
     - good afternoon
 
+- intent: hello_world
+  examples: |
+    - hello_world
+
+
+
+- intent: latest_movies
+  examples: |
+    - show me the latest movies
+    - what are the newest movies
+    - list the latest films
+    - tell me about new movies
+    - latest movies please
+    - recommend some new movies
+    - suggest the latest movies
+    - what new movies should I watch
+    - any movie recommendations
+    - recommend me the newest films
+    - anything new to watch
+    - whats new in movies
+    - got any new movies
+    - what movies are trending
+    - what are people watching lately
+    - new movies
+    - latest films
+    - new releases
+    - recent movies
+    - fresh movies
+    - are there any new movies out
+    - what new movies came out recently
+    - did any new movies release
+    - what are the latest movie releases
+    - any new films lately
+    - got something new to watch
+    - any fresh flicks
+    - new flicks out
+    - whats hot right now
+    - whats new at the movies
+
 - intent: goodbye
   examples: |
     - cu

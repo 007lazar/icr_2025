@@ -49,94 +49,113 @@ export class App {
       text: this.botThinkingPlaceholder
     })
 
-    // RasaService.sendMessage(trimmedMessage).then(rsp => {
-    //   if (rsp.data.length == 0) {
-    //     this.messages.push({
-    //       type: 'bot',
-    //       text: "Sorry, i didn't understand your question!"
-    //     })
-    //     return
-    //   }
+    RasaService.sendMessage(trimmedMessage).then(rsp => {
+      if (rsp.data.length == 0) {
+        this.messages.push({
+          type: 'bot',
+          text: "Sorry, i didn't understand your question!"
+        })
+        return
+      }
 
-    //   for (let botMsg of rsp.data) {
-    //     this.messages.push({
-    //       type: 'bot',
-    //       text: botMsg.text
-    //     })
-    //   }
+      for (let botMsg of rsp.data) {
+        if (botMsg.attachment != null && Array.isArray(botMsg.attachment)) {
+          let html = ''
+          for (let movie of botMsg.attachment as MovieModel[]) {
+            html += `<ul class="list-unstyled">`
+            html += `<li>Title: ${movie.title}</li>`
+            html += `<li>Director: ${movie.director.name}</li>`
+            html += `<li>Genres: ${movie.movieGenres.map(mg => mg.genre.name)}</li>`
+            html += `<li>Actors: ${movie.movieActors.map(ma => ma.actor.name)}</li>`
+            html += `</ul>`
+            html += `<p>${movie.shortDescription}</p>`
+          }
 
-    //   this.messages = this.messages.filter(m => {
-    //     if (m.type === 'bot') {
-    //       return m.text != this.botThinkingPlaceholder
-    //     }
-    //     return true
-    //   })
-    // })
+          this.messages.push({
+          type: 'bot',
+          text: html
+        })
+
+        }
+
+        this.messages.push({
+          type: 'bot',
+          text: botMsg.text
+        })
+      }
+
+      this.messages = this.messages.filter(m => {
+        if (m.type === 'bot') {
+          return m.text != this.botThinkingPlaceholder
+        }
+        return true
+      })
+    })
 
 
     // Primer bez Rase
     // Lokalno u Typescriptu
-    if (trimmedMessage.includes('all movie')) {
-      await this.createBotResponseAsMovieList()
-      return
-    }
+    // if (trimmedMessage.includes('all movie')) {
+    //   await this.createBotResponseAsMovieList()
+    //   return
+    // }
 
-    if (trimmedMessage.includes('movie detail')) {
-      const query = trimmedMessage.split('movie detail')[0].trim();
-      const movies = await MovieService.getMovies(query)
+    // if (trimmedMessage.includes('movie detail')) {
+    //   const query = trimmedMessage.split('movie detail')[0].trim();
+    //   const movies = await MovieService.getMovies(query)
 
-      if (movies.data.length > 0) {
-        const movie = movies.data[0]
-        let html = `<ul class="list-unstyled">`
-        html += `<li>Title: ${movie.title}</li>`
-        html += `<li>Director: ${movie.director.name}</li>`
-        html += `<li>Genres: ${movie.movieGenres.map(mg => mg.genre.name)}</li>`
-        html += `<li>Actors: ${movie.movieActors.map(ma => ma.actor.name)}</li>`
-        html += `</ul>`
-        html += `<p>${movie.shortDescription}</p>`
-        this.messages.push({
-          type: 'bot',
-          text: html
-        })
-      } else {
-        this.messages.push({
-          type: 'bot',
-          text: 'Sorry, there is no selected movie'
-        })
-      }
+    //   if (movies.data.length > 0) {
+    //     const movie = movies.data[0]
+    //     let html = `<ul class="list-unstyled">`
+    //     html += `<li>Title: ${movie.title}</li>`
+    //     html += `<li>Director: ${movie.director.name}</li>`
+    //     html += `<li>Genres: ${movie.movieGenres.map(mg => mg.genre.name)}</li>`
+    //     html += `<li>Actors: ${movie.movieActors.map(ma => ma.actor.name)}</li>`
+    //     html += `</ul>`
+    //     html += `<p>${movie.shortDescription}</p>`
+    //     this.messages.push({
+    //       type: 'bot',
+    //       text: html
+    //     })
+    //   } else {
+    //     this.messages.push({
+    //       type: 'bot',
+    //       text: 'Sorry, there is no selected movie'
+    //     })
+    //   }
 
-      this.removeBotPlaceholder()
-      return
-    }
+    //   this.removeBotPlaceholder()
+    //   return
+    // }
 
-    const genres = await MovieService.getGenres()
-    if (trimmedMessage.includes('genre list')) {
-      let html = `<ul class="list-unstyled">`
-      genres.data.map(g => `<li>${g.name}</li>`)
-        .forEach(g => html += g)
-      html += `</ul>`
+    // const genres = await MovieService.getGenres()
+    // if (trimmedMessage.includes('genre list')) {
+    //   let html = `<ul class="list-unstyled">`
+    //   genres.data.map(g => `<li>${g.name}</li>`)
+    //     .forEach(g => html += g)
+    //   html += `</ul>`
 
-      this.messages.push({
-        type: 'bot',
-        text: html
-      })
-      this.removeBotPlaceholder()
-      return
-    }
+    //   this.messages.push({
+    //     type: 'bot',
+    //     text: html
+    //   })
+    //   this.removeBotPlaceholder()
+    //   return
+    // }
 
-    // Napravi odgovor bota bas za sve zanrove da vrati film
-    for (let g of genres.data) {
-      if (trimmedMessage.includes('genre ' + g.name.toLowerCase()) || trimmedMessage.includes(g.name.toLowerCase() + ' genre')) {
-        await this.createBotResponseAsMovieList(g.genreId)
-        return
-      }
-    }
+    // // Napravi odgovor bota bas za sve zanrove da vrati film
+    // for (let g of genres.data) {
+    //   if (trimmedMessage.includes('genre ' + g.name.toLowerCase()) || trimmedMessage.includes(g.name.toLowerCase() + ' genre')) {
+    //     await this.createBotResponseAsMovieList(g.genreId)
+    //     return
+    //   }
+    // }
 
-    this.removeBotPlaceholder()
-    this.messages.push({
-      type: 'bot',
-      text: 'Seams like i cant help you with that!'
-    })
+    // this.removeBotPlaceholder()
+    // this.messages.push({
+    //   type: 'bot',
+    //   text: 'Seams like i cant help you with that!'
+    // })
   }
 
   async createBotResponseAsMovieList(genre: number = 0) {
