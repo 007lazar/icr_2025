@@ -21,3 +21,8 @@ rules:
   steps:
   - intent: latest_movies
   - action: action_latest_movies
+
+- rule: 'Search movies'
+  steps:
+  - intent: search_movies
+  - action: action_search_movies

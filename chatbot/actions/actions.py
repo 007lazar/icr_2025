@@ -32,11 +32,45 @@ class ActionLatestMovies(Action):
         movies = res.json()
 
         if len(movies) >= 3:
+            bot_response = {
+                "type": "movie_list",
+                "data": movies[-3:]
+            }
+
             dispatcher.utter_message(
             text='Here are some movies:', 
-            attachment=movies[-3:]
+            attachment= bot_response
         )
         else:
             dispatcher.utter_message(text='Not enough movies found')
+
+        return []
+
+class ActionSearchMovies(Action):
+
+    def name(self) -> Text:
+        return "action_search_movies"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            
+        criteria = tracker.get_slot("search_criteria")
+
+        if not criteria:
+            dispatcher.utter_message("I didn’t catch what movie to search for. Try again")
+            return []
+
+        url = 'https://movie.pequla.com/api/movie?search=' + criteria
+        res = requests.get(url)
+        movies = res.json()
+
+        dispatcher.utter_message(
+            text= 'Here are the search results for ' + criteria,
+            attachment={
+                "type": "movie_list",
+                "data": movies
+            }
+        )
 
         return []

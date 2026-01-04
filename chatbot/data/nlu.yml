@@ -56,6 +56,43 @@ nlu:
     - whats hot right now
     - whats new at the movies
 
+- intent: search_movies
+  examples: |
+    - search movie for [oppenheimer](search_criteria)
+    - search movies about [batman](search_criteria)
+    - search for a movie like [joker](search_criteria)
+    - i want movies like [dune](search_criteria)
+    - find movies similar to [gladiator](search_criteria)
+    - find movies like [inception](search_criteria)
+    - can you find movies like [avatar](search_criteria)
+    - show me movies similar to [interstellar](search_criteria)
+    - recommend movies like [mad max](search_criteria)
+    - give me movies like [fight club](search_criteria)
+    - i want to watch something like [matrix](search_criteria)
+    - look up movies about [spiderman](search_criteria)
+    - movies similar to [harry potter](search_criteria)
+    - can you look for movies like [godfather](search_criteria)
+    - please search movies for [deadpool](search_criteria)
+    - show results for [john wick](search_criteria)
+    - what movies are like [avatar](search_criteria)
+    - list movies like [barbie](search_criteria)
+    - get me movies similar to [fury](search_criteria)
+    - pull movies related to [star wars](search_criteria)
+    - movies related to [lord of the rings](search_criteria)
+    - find something similar to [300](search_criteria)
+    - any movies like [mission impossible](search_criteria)
+    - search movies by [terminator](search_criteria)
+    - movies inspired by [rocky](search_criteria)
+
+    
+- regex: search_criteria
+  examples: |
+    - (?<=movies for ).*
+    - (?<=movies by ).*
+    - (?<=search for ).*
+    - (?<=movies like ).*
+    - (?<=movies inspired ).*
+
 - intent: goodbye
   examples: |
     - cu
