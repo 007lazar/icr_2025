@@ -6,7 +6,6 @@ import { MessageModel } from '../models/message.model';
 import { RasaService } from '../services/rasa.service';
 import { FormsModule } from "@angular/forms";
 import { MovieService } from '../services/movie.service';
-import { AxiosResponse } from 'axios';
 import { MovieModel } from '../models/movie.model';
 
 @Component({
@@ -79,13 +78,31 @@ export class App {
               text: html
             })
           }
-        }
 
-        this.messages.push({
-          type: 'bot',
-          text: botMsg.text
-        })
+          // Simple object list (actor, director, genre)
+          if (botMsg.attachment.type == 'genre_list' || botMsg.attachment.type == 'actor_list' || botMsg.attachment.type == 'director_list') {
+
+            let html = ''
+            for (let obj of botMsg.attachment.data) {
+              html += `<ul class="list-unstyled p-0">`
+              html += `<li>${obj.name}</li>`
+              html += `</ul>`
+            }
+
+            this.messages.push({
+              type: 'bot',
+              text: html
+            })
+          }
+
+
+          this.messages.push({
+            type: 'bot',
+            text: botMsg.text
+          })
+        }
       }
+
 
       this.messages = this.messages.filter(m => {
         if (m.type === 'bot') {

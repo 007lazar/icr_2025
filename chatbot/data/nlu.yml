@@ -93,6 +93,74 @@ nlu:
     - (?<=movies like ).*
     - (?<=movies inspired ).*
 
+- intent: genre_list
+  examples: |
+    - list all genres
+    - what genres exist
+    - give me all genres
+    - show me genres
+    - which genres do you have
+    - what movie genres are available
+    - can you list movie genres
+    - display all genres
+    - tell me the available genres
+    - what kinds of genres are there
+    - what genres can I choose from
+    - list available movie genres
+    - I want to see all genres
+    - tell me the list of genres
+    - show me the genre list
+    - give me the genre options
+    - what genre categories exist
+    - what type of movie genres do you support
+    - what genres do you support
+    - do you have a list of genres
+    - can you show the genres
+    - I’d like to know the genres
+    - any genres available
+    - what kind of genres do you have
+
+- intent: actor_list
+  examples: |
+    - list all actors
+    - show me all actors
+    - what actors do you have
+    - give me a list of actors
+    - display actors
+    - who are the actors
+    - can you show actors
+    - actors list please
+    - I want to see actors
+    - list available actors
+    - which actors exist
+    - what actors are in your database
+    - do you have a list of actors
+    - provide me actor names
+    - let me see the actors
+    
+- intent: director_list
+  examples: |
+    - list all directors
+    - show me directors
+    - give me all directors
+    - which directors do you have
+    - what directors exist in your database
+    - display directors
+    - can you list directors for me
+    - i want to see all directors
+    - do you have a list of directors
+    - directors list please
+    - show directors collection
+    - who are the available directors
+    - let me see movie directors
+    - list movie directors
+    - show me the list of directors
+    - give me the directors list
+    - can you show all directors
+    - tell me all the directors you know
+    - i want a list of movie directors
+    - do you have list of film directors
+
 - intent: goodbye
   examples: |
     - cu

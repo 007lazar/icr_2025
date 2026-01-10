@@ -26,3 +26,18 @@ rules:
   steps:
   - intent: search_movies
   - action: action_search_movies
+
+- rule: 'List genres'
+  steps:
+  - intent: genre_list
+  - action: action_genre_list  
+
+- rule: 'List actors'
+  steps:
+  - intent: actor_list
+  - action: action_actor_list  
+
+- rule: 'List directors'
+  steps:
+  - intent: director_list
+  - action: action_director_list  
